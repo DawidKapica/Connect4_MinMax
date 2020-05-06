@@ -47,6 +47,8 @@ public class Game {
 
     public void playerVsAi(int level) {
         boolean hasWinner = false;
+        int winnerColor = 1;
+
         Scanner scanner = new Scanner(System.in);
         Board board = new Board();
         Connect4Logic connect4Logic = new Connect4Logic(board);
@@ -56,10 +58,17 @@ public class Game {
         while (hasWinner == false) {
             System.out.println("TWOJ RUCH");
             System.out.println(board.toString());
-            int columnPlayer = scanner.nextInt();
+            int columnPlayer = -1;
+
+            while (columnPlayer < 0 || columnPlayer > 6) {
+                columnPlayer = scanner.nextInt();
+                if (columnPlayer < 0 || columnPlayer > 6) {
+                    System.out.println("bledna wartosc, podaj ponownie");
+                }
+            }
             int rowPlayer = connect4Logic.addField(columnPlayer, -1);
-            System.out.println(rowPlayer);
-            System.out.println(columnPlayer);
+//            System.out.println(rowPlayer);
+//            System.out.println(columnPlayer);
 
             hasWinner = (connect4Logic.checkWin(rowPlayer, columnPlayer));
 
@@ -72,12 +81,14 @@ public class Game {
 
                 hasWinner = connect4Logic.checkWin(rowAI, columnAI);
 
+            } else {
+                winnerColor = -1;
             }
 
 
         }
 
-        System.out.println("KONIEC");
+        System.out.println("KONIEC ZWYCIĘZCA: " + winnerColor);
         System.out.println(board.toString());
     }
 }

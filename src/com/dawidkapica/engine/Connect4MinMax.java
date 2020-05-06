@@ -27,9 +27,7 @@ public class Connect4MinMax {
         }
 
         Node node = new Node(board);
-
         max(node, 0);
-
         int indexToPlace = 0;
 
         node.setValue(Integer.MIN_VALUE);
@@ -67,7 +65,6 @@ public class Connect4MinMax {
         node.setValue(score);
 
         return  score;
-
     }
 
     public int min(Node node, int depth) {
@@ -75,7 +72,7 @@ public class Connect4MinMax {
         node.createChild();
         ArrayList<Integer> fitnesses = connect4Fitness.calculateFitnesses(node.getBoard(), minColor);
         for (int i = 0; i< node.getChild().size(); i++) {
-            node.getChild().get(i).getBoard().putDisk(i, maxColor);
+            node.getChild().get(i).getBoard().putDisk(i, minColor);
             node.getChild().get(i).setValue(fitnesses.get(i)*-1);
             if (depth < searchDepth) {
                 max(node.getChild().get(i), depth+1);
@@ -84,8 +81,8 @@ public class Connect4MinMax {
 
         int score = Integer.MAX_VALUE;
         for (Node nodeChild: node.getChild()) {
-            if (nodeChild.getValue()*-1 < score) {
-                score = nodeChild.getValue()*-1;
+            if (nodeChild.getValue() < score) {
+                score = nodeChild.getValue();
             }
         }
 

@@ -45,7 +45,7 @@ public class Connect4Logic {
         int rightIndexStep = 1;
         int pointInLine = 1;
 
-        while (leftIndexCorrect && rightIndexCorrect) {
+        while (leftIndexCorrect || rightIndexCorrect) {
             if (leftIndexCorrect && (indexV + leftIndexStep) >= 0) {
                 if(board.getFieldValue(indexH, indexV) == board.getFieldValue(indexH, indexV + leftIndexStep)) {
                     leftIndexStep = leftIndexStep -1;

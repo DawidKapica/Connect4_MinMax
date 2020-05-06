@@ -27,38 +27,45 @@ public class Connect4Fitness {
         int ascDiagonal_points=0;
         int total_points=0;
 
-
-
         for (int row = 0; row < 6 - 3; row++) {
             for (int column = 0; column < 7; column++) {
                 int tempScore = calcScoreOnPosition(board, row, column, 1, 0, color);
+//                if (tempScore == 10000) {
+//                    return tempScore;
+//                }
                 vertical_points += tempScore;
 
             }
         }
 
-
         for (int row = 0; row < 6 ; row++) {
             for (int column = 0; column < 7 - 3; column++) {
                 int tempScore = calcScoreOnPosition(board, row, column, 0, 1, color);
+//                if (tempScore == 10000) {
+//                    return tempScore;
+//                }
                 horizontal_points += tempScore;
 
             }
         }
 
-
         for (int row = 0; row < 6 - 3 ; row++) {
             for (int column = 0; column < 7 - 3; column++) {
                 int tempScore = calcScoreOnPosition(board, row, column, 1, 1, color);
+//                if (tempScore == 10000) {
+//                    return tempScore;
+//                }
                 descDiagonal_points += tempScore;
 
             }
         }
 
-
         for (int row = 3; row < 6; row++) {
             for (int column = 0; column < 7 - 4; column++) {
                 int tempScore = calcScoreOnPosition(board, row, column, -1, 1, color);
+//                if (tempScore == 10000) {
+//                    return tempScore;
+//                }
                 ascDiagonal_points += tempScore;
 
             }
@@ -88,19 +95,17 @@ public class Connect4Fitness {
         }
 
         if(playerMinus1Point == 4) {
-//            if (color == -1) {
+            if (color == -1) {
                 return 10000;
-//            }
-//            } else {
-//                return -10000;
-//            }
+            } else {
+                return -10000;
+            }
         } else if(playerPlus1Point == 4)
-//            if (color == 1) {
+            if (color == 1) {
                 return 10000;
-//            }
-//            } else {
-//                return -10000;
-//            }
+            } else {
+                return -10000;
+            }
         else {
             if (color == 1) {
                 return playerPlus1Point;
