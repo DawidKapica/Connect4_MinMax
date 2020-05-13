@@ -1,5 +1,7 @@
 package com.dawidkapica.information;
 
+import com.dawidkapica.engine.Connect4Fitness;
+
 import java.util.ArrayList;
 
 public class Node {
@@ -11,8 +13,10 @@ public class Node {
 
     private int value = 0;
 
+    private int placeIndex = -1;
+
     public Node(Board board, int turn) {
-        this.board = board;
+        this.board = new Board((board));
         this.turn = turn;
 
 //        for (int i = 0; i < 7; i++) {
@@ -28,6 +32,13 @@ public class Node {
 
     public Node(Board board) {
         this.board = new Board(board);
+    }
+
+    public Node(Node node) {
+        this.board = new Board((node.getBoard()));
+        this.child = new ArrayList<>(child);
+        this.turn = node.getTurn();
+        this.value = node.getValue();
     }
 
     public Board getBoard () {
@@ -62,7 +73,7 @@ public class Node {
         this.value = value;
     }
 
-    public void createChild() {
+    public void createAllChilds () {
         for (int i = 0; i < 7; i++) {
             child.add(new Node(board));
             if (turn == -1) {
@@ -71,5 +82,41 @@ public class Node {
                 child.get(i).setTurn(-1);
             }
         }
+    }
+
+    public Node createChild(int column, int color, boolean minimilize) {
+        Node childNode;
+        if (turn == -1) {
+            childNode = new Node(this.board, 1);
+            child.add(childNode);
+//            child.add(new Node(board, 1).getBoard().putDisk(column, color));
+        } else {
+            childNode = new Node(this.board, 1);
+            child.add(childNode);
+
+//            child.add(new Node(board, -1));
+        }
+
+        Connect4Fitness connect4Fitness = new Connect4Fitness();
+        childNode.getBoard().putDisk(column, color);
+//        if (!minimilize) {
+//            childNode.setValue(connect4Fitness.calcScore(childNode.getBoard(), color));
+//        } else {
+//            childNode.setValue(connect4Fitness.calcScore(childNode.getBoard(), color) * -1);
+//
+//        }
+        childNode.setPlaceIndex(column);
+        placeIndex = column;
+
+        return childNode;
+    }
+
+
+    public int getPlaceIndex () {
+        return placeIndex;
+    }
+
+    public void setPlaceIndex (int placeIndex) {
+        this.placeIndex = placeIndex;
     }
 }

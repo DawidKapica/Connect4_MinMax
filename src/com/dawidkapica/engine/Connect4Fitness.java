@@ -5,7 +5,7 @@ import com.dawidkapica.information.Board;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Connect4Fitness {
+public class Connect4Fitness implements FitnessHeuristic {
 
     public ArrayList<Integer> calculateFitnesses(Board board, int color) {
         ArrayList<Integer> scoreColumn = new ArrayList<>(List.of(0, 0, 0, 4, 0, 0, 0));
